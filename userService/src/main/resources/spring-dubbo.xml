@@ -16,6 +16,5 @@ http://code.alibabatech.com/schema/dubbo ">
     <dubbo:service interface="com.dubo.exterface.UserService" ref="userService" />
     <!-- 具体的实现bean -->
     <bean id="userService" class="com.dubo.service.UserServiceImpl"/>
-    <!-- 设置dubbo服务超时时间-->
-    <dubbo:service interface="com.dubo.exterface.UserService" ref="userService" timeout="1200000"/>
+
 </beans>
