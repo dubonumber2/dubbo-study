@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+http://code.alibabatech.com/schema/dubbo ">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="dubbo-consumer"/>
+    <!--  使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="zookeeper://10.0.0.97:2181"/>
+
+    <!-- 声明需要暴露的服务接口 -->
+       <dubbo:reference id="userService" interface="com.dubo.exterface.UserService" check="false"></dubbo:reference>
+    <!-- 具体的实现bean -->
+
+</beans>
