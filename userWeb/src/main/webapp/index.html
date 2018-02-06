@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <title>test数据</title>
+        <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+    <script src="/statics/layui/jquery.min.js"></script>
+        <script type="text/javascript">
+
+
+        </script>
+    </head>
+<body>
+
+<table id='main' class="layui-table" lay-data="{fixed:true,height:'full-10',cellMinWidth: 80, url:'/user/getUser.action', page:true,limit:100, limits:[100,600,900,1200],id:'test'}" lay-filter="test">
+    <thead>
+    <tr>
+
+        <th lay-data="{field:'operation_name',event:'test'}">数据源</th>
+        <th lay-data="{field:'operation_explain', sort: true}">MongoDB总量</th>
+        <th lay-data="{field:'user_name',sort: true}">Mysql总量</th>
+        <th lay-data="{field:'operation_time',sort: true}">MongoDB增量</th>
+
+
+        <!--<th lay-data="{field:'wealth', width:135, sort: true}">财富</th>-->
+    </tr>
+    </thead>
+</table>
+
+<script src="/statics/layui/layui.js"></script>
+<script type="text/javascript" src="/statics/layui/layui.all.js"></script>
+</body>
+</html>

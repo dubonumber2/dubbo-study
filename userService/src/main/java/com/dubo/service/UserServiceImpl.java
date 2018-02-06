@@ -4,7 +4,7 @@ import com.dubo.dao.UserDao;
 
 
 import com.dubo.entity.User;
-import com.dubo.exterface.UserService;
+import com.dubo.exterface.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -20,7 +20,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUser() {
-        return userDao.getUser();
+    public List<User> getUser(int i, int i1) {
+        int pageSize=(i1-1)*i;
+        return userDao.getUser(i,pageSize);
+    }
+
+    @Override
+    public int getTotal() {
+        return userDao.getTotal();
     }
 }
