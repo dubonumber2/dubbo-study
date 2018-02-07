@@ -10,7 +10,7 @@ http://code.alibabatech.com/schema/dubbo ">
     <!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="dubbo-consumer"/>
     <!--  使用zookeeper注册中心暴露服务地址 -->
-    <dubbo:registry address="zookeeper://10.0.0.97:2181"/>
+    <dubbo:registry protocol="zookeeper" address="10.0.0.97:2181,10.0.0.96:2182,10.0.0.42:2153"/>
 
     <!-- 声明需要暴露的服务接口 -->
        <dubbo:reference id="userService" interface="com.dubo.exterface.UserService" check="false"></dubbo:reference>
