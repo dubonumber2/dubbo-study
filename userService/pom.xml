@@ -22,6 +22,12 @@
             <artifactId>zookeeper</artifactId>
             <version>3.4.10</version>
         </dependency>
+        <!-- 添加mysql驱动依赖 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-driver.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.dubo.study</groupId>
             <artifactId>userInterface</artifactId>

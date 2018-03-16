@@ -19,7 +19,7 @@ public class UserController {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-    @RequestMapping("/getUser.action")
+    @RequestMapping("/getUser.do")
     public @ResponseBody
     LayUiUtils getUser(int limit,int page){
         List<User> list=userService.getUser(limit, page);

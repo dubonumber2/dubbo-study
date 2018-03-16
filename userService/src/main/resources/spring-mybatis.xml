@@ -58,6 +58,39 @@
         <!-- 配置监控统计拦截的filters -->
         <property name="filters" value="${db.filters}" />
     </bean>
+
+    <!-- 配置数据源 -->
+    <bean name="dataSource1" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="name" value="${db.name}" />
+        <property name="driverClassName" value="${dbpro.mysqlDriver}" />
+         <!--基本属性 url、user、password ;-->
+        <property name="url" value="${dbpro.url}" />
+        <property name="username" value="${dbpro.username}" />
+        <property name="password" value="${dbpro.password}" />
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${db.initialSize}" />
+        <property name="minIdle" value="${db.minIdle}" />
+        <property name="maxActive" value="${db.maxActive}" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${db.maxWait}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${db.timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${db.minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${db.validationQuery}" />
+        <property name="testWhileIdle" value="${db.testWhileIdle}" />
+        <property name="testOnBorrow" value="${db.testOnBorrow}" />
+        <property name="testOnReturn" value="${db.testOnReturn}" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="${db.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${db.maxPoolPreparedStatementPerConnectionSize}" />
+        <property name="removeAbandoned" value="${db.removeAbandoned}" />
+        <property name="removeAbandonedTimeout" value="${db.removeAbandonedTimeout}" />
+        <property name="logAbandoned" value="${db.logAbandoned}" />
+        <!--<property name="exceptionSorter" value="" />-->
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="${db.filters}" />
+    </bean>
     <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -72,7 +105,28 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
+    <bean id="dynamicDataSource" class="com.dubo.utils.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <!-- 指定lookupKey和与之对应的数据源 -->
+                <entry key="dataSource" value-ref="dataSource"></entry>
+               <!-- <entry key="dataSource1" value-ref="dataSource1"></entry>-->
+                <!--  <entry key="dataSource6" value-ref="dataSource6"></entry>-->
+            </map>
+        </property>
+        <!-- 这里可以指定默认的数据源 -->
+        <property name="defaultTargetDataSource" ref="dataSource" />
+    </bean>
 
+    <bean id="dataSourceAspect" class="com.dubo.utils.DataSourceAspect"/>
+
+    <aop:config>
+        <aop:aspect ref="dataSourceAspect">
+            <!--拦截所有service方法-->
+            <aop:pointcut id="dataSourcePointcut" expression="execution(* com.dubo.service..*.*(..))"/>
+            <aop:before pointcut-ref="dataSourcePointcut" method="intercept" />
+        </aop:aspect>
+    </aop:config>
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 

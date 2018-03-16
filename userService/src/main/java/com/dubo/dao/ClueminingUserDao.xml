@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+<mapper namespace="com.dubo.dao.ClueminingUserDao">
+    <select id="getAll" resultType="com.dubo.entity.ClueminingUser">
+        select a.user_id as user_id,a.name as user_name,a.company_name as user_company,a.user_real_name as realname,b.name as user_type from
+        user a left join user_type b on a.user_type=b.id
+    </select>
+    <insert id="insert" parameterType="com.dubo.entity.ClueminingUser">
+        insert into public.cluemining_user (user_id, user_name, user_type, user_company, realname) VALUES (#{user_id},#{user_name},#{user_type},#{user_company},#{realname})
+    </insert>
+
+    <delete id="deleteAll">
+        delete from cluemining_user
+    </delete>
+</mapper>

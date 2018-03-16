@@ -14,7 +14,8 @@ http://code.alibabatech.com/schema/dubbo ">
 
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.dubo.exterface.UserService" ref="userService" />
+    <dubbo:service interface="com.dubo.exterface.ClueminingUserService" ref="clueminingUserService"></dubbo:service>
     <!-- 具体的实现bean -->
     <bean id="userService" class="com.dubo.service.UserServiceImpl"/>
-
+    <bean id="clueminingUserService" class="com.dubo.service.ClueminingUserServiceImpl"></bean>
 </beans>
