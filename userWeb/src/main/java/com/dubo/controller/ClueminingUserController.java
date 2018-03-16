@@ -7,12 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/cluemining")
+@Controller
+@RequestMapping("/cluemining")
 public class ClueminingUserController {
     @Autowired
     private ClueminingUserService clueminingUserService;
@@ -30,10 +33,11 @@ public class ClueminingUserController {
     @RequestMapping("/userData.do")
     public void updateClueminingUser(){
         logger.info("【开始更新】msg={}","开始更新线下用户数据");
-        //先清空线下线索挖掘用户表
-        clueminingUserService.deleteAll();
+
         //获取线上用户的数据
         List<ClueminingUser> list=clueminingUserService.getAll();
+        //先清空线下线索挖掘用户表
+        clueminingUserService.deleteAll();
         //插入线下数据库
         for(ClueminingUser one:list){
             clueminingUserService.insert(one);
@@ -41,5 +45,10 @@ public class ClueminingUserController {
 
         logger.info("【更新完成】msg={}","线下用户数据更新完成");
 
+    }
+    @RequestMapping("/getUser.do")
+    public @ResponseBody List<ClueminingUser> test(){
+        logger.info("【信息】msg={}","成功进入");
+        return clueminingUserService.test();
     }
 }

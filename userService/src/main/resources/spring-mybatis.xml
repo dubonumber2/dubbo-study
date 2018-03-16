@@ -61,7 +61,7 @@
 
     <!-- 配置数据源 -->
     <bean name="dataSource1" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="name" value="${db.name}" />
+        <property name="name" value="dubo1" />
         <property name="driverClassName" value="${dbpro.mysqlDriver}" />
          <!--基本属性 url、user、password ;-->
         <property name="url" value="${dbpro.url}" />
@@ -91,13 +91,7 @@
         <!-- 配置监控统计拦截的filters -->
         <property name="filters" value="${db.filters}" />
     </bean>
-    <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
 
-        <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath:com/dubo/dao/*.xml"></property>
-    </bean>
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -110,7 +104,7 @@
             <map key-type="java.lang.String">
                 <!-- 指定lookupKey和与之对应的数据源 -->
                 <entry key="dataSource" value-ref="dataSource"></entry>
-               <!-- <entry key="dataSource1" value-ref="dataSource1"></entry>-->
+                <entry key="dataSource1" value-ref="dataSource1"></entry>
                 <!--  <entry key="dataSource6" value-ref="dataSource6"></entry>-->
             </map>
         </property>
@@ -127,6 +121,14 @@
             <aop:before pointcut-ref="dataSourcePointcut" method="intercept" />
         </aop:aspect>
     </aop:config>
+
+    <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dynamicDataSource"/>
+
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" value="classpath:com/dubo/dao/*.xml"></property>
+    </bean>
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 

@@ -22,4 +22,10 @@ public interface ClueminingUserService {
      */
     public void deleteAll();
 
+    /**
+     * 测试
+     * @return
+     */
+    public List<ClueminingUser> test();
+
 }

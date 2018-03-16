@@ -21,4 +21,10 @@ public interface ClueminingUserDao {
      * 更新之前清除数据
      */
     public void deleteAll();
+
+    /**
+     * test
+     * @return
+     */
+    public List<ClueminingUser> test();
 }

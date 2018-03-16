@@ -14,4 +14,9 @@
     <delete id="deleteAll">
         delete from cluemining_user
     </delete>
+
+    <select id="test" resultType="com.dubo.entity.ClueminingUser">
+        select * from cluemining_user
+
+    </select>
 </mapper>

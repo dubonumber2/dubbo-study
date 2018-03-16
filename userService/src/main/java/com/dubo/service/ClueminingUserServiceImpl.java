@@ -36,4 +36,9 @@ public class ClueminingUserServiceImpl implements ClueminingUserService {
         clueminingUserDao.deleteAll();
     }
 
+    @Override
+    @DataSource("dataSource")
+    public List<ClueminingUser> test() {
+        return clueminingUserDao.test();
+    }
 }
